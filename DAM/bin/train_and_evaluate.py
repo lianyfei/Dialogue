@@ -2,7 +2,7 @@ import sys
 import os
 import time
 
-import cPickle as pickle
+import pickle as pickle
 import tensorflow as tf
 import numpy as np
 
@@ -58,7 +58,7 @@ def train(conf, _model):
         step = 0
         best_result = [0, 0, 0, 0]
 
-        for step_i in xrange(conf["num_scan_data"]):
+        for step_i in range(conf["num_scan_data"]):
             #for batch_index in rng.permutation(range(batch_num)):
             print('starting shuffle train data')
             shuffle_train = reader.unison_shuffle(train_data)
@@ -98,7 +98,7 @@ def train(conf, _model):
                     print('save step: %s' %index)
                     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
 
-                    for batch_index in xrange(val_batch_num):
+                    for batch_index in range(val_batch_num):
                 
                         feed = { 
                             _model.turns: val_batches["turns"][batch_index],
@@ -111,7 +111,7 @@ def train(conf, _model):
                 
                         scores = sess.run(_model.logits, feed_dict = feed)
                     
-                        for i in xrange(conf["batch_size"]):
+                        for i in range(conf["batch_size"]):
                             score_file.write(
                                 str(scores[i]) + '\t' + 
                                 str(val_batches["label"][batch_index][i]) + '\n')

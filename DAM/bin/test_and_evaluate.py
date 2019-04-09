@@ -2,7 +2,7 @@ import sys
 import os
 import time
 
-import cPickle as pickle
+import pickle as pickle
 import tensorflow as tf
 import numpy as np
 
@@ -49,7 +49,7 @@ def test(conf, _model):
 
         print('starting test')
         print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
-        for batch_index in xrange(test_batch_num):
+        for batch_index in range(test_batch_num):
                 
             feed = { 
                 _model.turns: test_batches["turns"][batch_index],
@@ -62,7 +62,7 @@ def test(conf, _model):
                 
             scores = sess.run(_model.logits, feed_dict = feed)
                     
-            for i in xrange(conf["batch_size"]):
+            for i in range(conf["batch_size"]):
                 score_file.write(
                     str(scores[i]) + '\t' + 
                     str(test_batches["label"][batch_index][i]) + '\n')

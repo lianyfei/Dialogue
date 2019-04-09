@@ -2,7 +2,7 @@ import sys
 import os
 import time
 
-import cPickle as pickle
+import pickle as pickle
 import tensorflow as tf
 import numpy as np
 
@@ -18,9 +18,9 @@ import bin.test_and_evaluate as test
 # configure
 
 conf = {
-    "data_path": "./data/ubuntu/data.pkl",
+    "data_path": "/Users/lianyafei/nlp_data/data/data.pkl",
     "save_path": "./output/ubuntu/temp/",
-    "word_emb_init": "./data/word_embedding.pkl",
+    "word_emb_init": "/Users/lianyafei/nlp_data/data/word_embedding.pkl",
     "init_model": None, #should be set for test
 
     "rand_seed": None, 
