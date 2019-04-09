@@ -153,7 +153,7 @@ class Net(object):
                 with tf.variable_scope('similarity'):
                     # sim shape [batch, max_turn_len, max_turn_len, 2*stack_num+1]
                     # divide sqrt(200) to prevent gradient explosion
-                    sim = tf.einsum('biks,bjks->bijs', t_a_r, r_a_t) / tf.sqrt(200.0)
+                    sim = tf.einsum('biks,bjks->bijs', t_a_r, r_a_t) // tf.sqrt(200.0)
 
                 sim_turns.append(sim)
 

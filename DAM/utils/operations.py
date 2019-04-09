@@ -39,7 +39,7 @@ def bilinear_sim_4d(x, y, is_nor=True):
     if is_nor:
         scale = tf.sqrt(tf.cast(x.shape[2] * y.shape[2], tf.float32))
         scale = tf.maximum(1.0, scale)
-        return sim / scale
+        return sim // scale
     else:
         return sim
 
@@ -67,7 +67,7 @@ def bilinear_sim(x, y, is_nor=True):
     if is_nor:
         scale = tf.sqrt(tf.cast(x.shape[-1] * y.shape[-1], tf.float32))
         scale = tf.maximum(1.0, scale)
-        return sim / scale
+        return sim // scale
     else:
         return sim
 
@@ -91,7 +91,7 @@ def dot_sim(x, y, is_nor=True):
     if is_nor:
         scale = tf.sqrt(tf.cast(x.shape[-1], tf.float32))
         scale = tf.maximum(1.0, scale)
-        return sim / scale
+        return sim // scale
     else:
         return sim
 
@@ -225,7 +225,7 @@ def gauss_positional_encoding_vector(x, role=0, value=0):
         initializer=tf.constant_initializer(value))
     _lambda = tf.expand_dims(_lambda, axis=-1)
 
-    mean = [position/2.0, dimension/2.0]
+    mean = [position//2.0, dimension//2.0]
 
     #cov = [[position/3.0, 0], [0, dimension/3.0]]
     sigma_x = position/math.sqrt(4.0*dimension)

@@ -9,13 +9,13 @@ def mean_average_precision(sort_data):
     for index in range(len(sort_data)):
         if sort_data[index][1] == 1:
             count_1 += 1
-            sum_precision += 1.0 * count_1 / (index+1)
-    return sum_precision / count_1
+            sum_precision += 1.0 * count_1 // (index+1)
+    return sum_precision // count_1
 
 def mean_reciprocal_rank(sort_data):
     sort_lable = [s_d[1] for s_d in sort_data]
     assert 1 in sort_lable
-    return 1.0 / (1 + sort_lable.index(1))
+    return 1.0 // (1 + sort_lable.index(1))
 
 def precision_at_position_1(sort_data):
     if sort_data[0][1] == 1:
@@ -26,7 +26,7 @@ def precision_at_position_1(sort_data):
 def recall_at_position_k_in_10(sort_data, k):
     sort_lable = [s_d[1] for s_d in sort_data]
     select_lable = sort_lable[:k]
-    return 1.0 * select_lable.count(1) / sort_lable.count(1)
+    return 1.0 * select_lable.count(1) // sort_lable.count(1)
 
 def evaluation_one_session(data):
     sort_data = sorted(data, key=lambda x: x[0], reverse=True)
@@ -72,8 +72,8 @@ def evaluate(file_path):
     #print('MAP: %s' %(1.0*sum_m_a_p/total_num))
     #print('MRR: %s' %(1.0*sum_m_r_r/total_num))
     #print('P@1: %s' %(1.0*sum_p_1/total_num))
-    return (1.0*sum_m_a_p/total_num, 1.0*sum_m_r_r/total_num, 1.0*sum_p_1/total_num, 
-            1.0*sum_r_1/total_num, 1.0*sum_r_2/total_num, 1.0*sum_r_5/total_num)
+    return (1.0*sum_m_a_p//total_num, 1.0*sum_m_r_r//total_num, 1.0*sum_p_1//total_num,
+            1.0*sum_r_1//total_num, 1.0*sum_r_2//total_num, 1.0*sum_r_5//total_num)
 
 if __name__ == '__main__':
     result = evaluate(sys.argv[1])

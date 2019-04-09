@@ -121,7 +121,7 @@ class Net(object):
                 with tf.variable_scope('similarity'):
                     # sim shape [batch, max_turn_len, max_turn_len, 2*stack_num+1]
                     # divide sqrt(200) to prevent gradient explosion
-                    sim = tf.einsum('biks,bjks->bijs', Hu_stack, Hr_stack) / tf.sqrt(200.0)
+                    sim = tf.einsum('biks,bjks->bijs', Hu_stack, Hr_stack) // tf.sqrt(200.0)
 
                 sim_turns.append(sim)
 
@@ -159,7 +159,7 @@ class Net(object):
 
                 for grad, var in self.grads_and_vars:
                     if grad is None:
-                        print var
+                        print( var)
 
                 self.capped_gvs = [(tf.clip_by_value(grad, -1, 1), var) for grad, var in self.grads_and_vars]
                 self.g_updates = Optimizer.apply_gradients(

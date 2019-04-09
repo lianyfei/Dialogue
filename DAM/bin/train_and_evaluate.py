@@ -31,12 +31,12 @@ def train(conf, _model):
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
 
     # refine conf
-    batch_num = len(train_data['y']) / conf["batch_size"]
+    batch_num = len(train_data['y']) // conf["batch_size"]
     val_batch_num = len(val_batches["response"])
 
     conf["train_steps"] = conf["num_scan_data"] * batch_num
-    conf["save_step"] = max(1, batch_num / 10)
-    conf["print_step"] = max(1, batch_num / 100)
+    conf["save_step"] = max(1, batch_num // 10)
+    conf["print_step"] = max(1, batch_num // 100)
 
     print('configurations: %s' %conf)
 
@@ -87,12 +87,12 @@ def train(conf, _model):
                 if step % conf["print_step"] == 0 and step > 0:
                     g_step, lr = sess.run([_model.global_step, _model.learning_rate])
                     print('step: %s, lr: %s' %(g_step, lr))
-                    print("processed: [" + str(step * 1.0 / batch_num) + "] loss: [" + str(average_loss / conf["print_step"]) + "]" )
+                    print("processed: [" + str(step * 1.0 // batch_num) + "] loss: [" + str(average_loss / conf["print_step"]) + "]" )
                     average_loss = 0
 
                 
                 if step % conf["save_step"] == 0 and step > 0:
-                    index = step / conf['save_step']
+                    index = step // conf['save_step']
                     score_file_path = conf['save_path'] + 'score.' + str(index)
                     score_file = open(score_file_path, 'w')
                     print('save step: %s' %index)
@@ -128,7 +128,7 @@ def train(conf, _model):
 
                     if result[1] + result[2] > best_result[1] + best_result[2]:
                         best_result = result
-                        _save_path = _model.saver.save(sess, conf["save_path"] + "model.ckpt." + str(step / conf["save_step"]))
+                        _save_path = _model.saver.save(sess, conf["save_path"] + "model.ckpt." + str(step // conf["save_step"]))
                         print("succ saving model in " + _save_path)
                         print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
                     
